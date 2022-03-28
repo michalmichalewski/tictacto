@@ -19,8 +19,9 @@ export class GameFileRepository implements GameRepositoryInterface {
     findGameById(id: Id): Promise<Game|{}> {
         return this.readFileContent(id).then(jsonData => {
             const gameData = JSON.parse(jsonData) as any;
+
             const game = GameFactory.createGameFromState(
-                gameData.id,
+                gameData._id.value,
                 gameData.board as Board,
                 gameData.state as State,
                 gameData.players.players,

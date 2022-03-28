@@ -20,6 +20,7 @@ export class GameService {
 
     findGameById(id: Id) {
         return this.gameRepository.findGameById(id).then(game => {
+            console.log(game);
             if(game === null) {
                 throw new HttpException('Not found', 404);
             }
