@@ -6,10 +6,16 @@ import {Id} from "./domain/models/valueObject/id";
 import {Sign} from "./domain/models/game/sign";
 import {Move} from "./domain/models/valueObject/move";
 import {GameProgresListener} from "./domain/listener/GameProgresListener";
+import {MoveFactory} from "./domain/factories/MoveFactory";
 
 @Controller('api/games')
 export class AppController {
   constructor(private readonly gameService: GameService) {}
+
+  @Get('/')
+  index() {
+    return 'Api v0.0.1';
+  }
 
   @Get(':id')
   findGameById(@Param() params): string {
@@ -26,7 +32,7 @@ export class AppController {
       const game: Game = await this.gameService.findGameById(new Id(id));
       const player = game.getPlayerBySign(move.sign as Sign);
       const gameProgresListener = new GameProgresListener();
-      player.makeMove(new Move(move.index));
+      player.makeMove(MoveFactory.createFromDto(move));
       gameProgresListener.gameStateHaveChanged(game);
       this.gameService.persistState(game);
       return game;

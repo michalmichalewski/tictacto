@@ -4,12 +4,23 @@ import {State} from "../models/game/state";
 import {Id} from "../models/valueObject/id";
 import {Player} from "../models/game/player";
 import {Field} from "../models/game/board/field";
-import { Sign } from "../models/game/sign";
+import {Sign} from "../models/game/sign";
 import {Players} from "../models/game/players";
 import {PlayerFactory} from "./PlayerFactory";
 
 export class GameFactory {
-    static createNewGame(boardSize = 9): Game {
+
+    static createGameWithoutPlayers(boardSize: number = 9)
+    {
+        return new Game(
+            new Id(),
+            new Board(boardSize),
+            State.NEW,
+            new Players()
+        );
+    }
+
+    static createNewGame(boardSize: number = 9): Game {
         const game = new Game(
             new Id(),
             new Board(boardSize),

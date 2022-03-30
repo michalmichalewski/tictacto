@@ -50,4 +50,8 @@ export class Board implements PlayerBoardInterface
     set area(fields: Field[]) {
         this._area = fields;
     }
+
+    size(): number {
+        return this._area.length;
+    }
 }
