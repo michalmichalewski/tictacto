@@ -30,6 +30,10 @@ export class Players {
         return this.players[this.currentPlayerIndex];
     }
 
+    nextPlayer(): Player {
+        return this.players[(this.currentPlayerIndex + 1) % 2];
+    }
+
     private checkPlayerCanJoin(): boolean {
         return this.players.length <= 2;
     }

@@ -6,4 +6,5 @@ export interface PlayerBoardInterface {
     getSignByIndex(index: number): Sign;
     hasAnySpaceLeft(): boolean;
     runOutOfSpace(): boolean;
+    size(): number;
 }

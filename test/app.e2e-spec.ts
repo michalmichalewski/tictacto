@@ -15,10 +15,15 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('should return 200 on /', function () {
     return request(app.getHttpServer())
-      .get('/')
+        .get('/api/games')
+        .expect(200);
+  });
+
+  it('/api/games/[id] (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/api/games/cac0a606-0dfd-4ee2-8ea6-5f2db582068c')
       .expect(200)
-      .expect('Hello World!');
   });
 });

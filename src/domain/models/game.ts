@@ -33,8 +33,9 @@ export class Game implements GameStateInterface {
         return this._id.toString();
     }
 
-    join(player: Player) {
+    join(player: Player): boolean {
         this.players.add(player);
+        return true;
     }
 
     getPlayerBySign(sign: Sign): Player {
@@ -52,6 +53,11 @@ export class Game implements GameStateInterface {
         if(!this.players.canCurrentPlayerMakeAMove(sign)) {
             throw new Error('It is not your turn');
         }
+
+        if(this.players.nextPlayer() === undefined) {
+            throw new Error('You cannot play alone');
+        }
+
         this.board.registerAction(move, sign);
         this.setState(State.IN_PROGRESS);
         this.players.changeCurrentPlayer();
